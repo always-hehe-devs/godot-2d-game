@@ -1,9 +1,24 @@
-[gd_scene format=3 uid="uid://dijtfj8ud544i"]
+[gd_scene load_steps=3 format=3 uid="uid://6wiqs4hietn1"]
+
+[ext_resource type="PackedScene" uid="uid://ba5it84dsu41e" path="res://player.tscn" id="1_t05r3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwpef"]
+size = Vector2(488, 32)
 
 [node name="king_game" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1148.0
 offset_bottom = 645.0
+
+[node name="Player" parent="." instance=ExtResource("1_t05r3")]
+position = Vector2(575, 248)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(553, 378)
+shape = SubResource("RectangleShape2D_rwpef")
