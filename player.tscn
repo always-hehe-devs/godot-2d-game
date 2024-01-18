@@ -3,8 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://ta8ubl37cj5n" path="res://assets/01-King Human/Idle (78x58).png" id="1_kdoui"]
 [ext_resource type="Script" path="res://player.gd" id="1_p5lvo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fye3k"]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_yfi3k"]
 atlas = ExtResource("1_kdoui")
 region = Rect2(0, 0, 78, 58)
@@ -90,13 +88,16 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fye3k"]
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_p5lvo")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_fye3k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wbibq")
 animation = &"Idle"
 frame_progress = 0.965788
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 5)
+shape = SubResource("RectangleShape2D_fye3k")
