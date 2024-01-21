@@ -7,14 +7,14 @@
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1148.0
 offset_bottom = 645.0
-
-[node name="Player" parent="." instance=ExtResource("1_t05r3")]
-position = Vector2(575, 248)
+color = Color(0.188235, 0.156863, 0.25098, 1)
 
 [node name="TileMap" parent="." instance=ExtResource("2_cr020")]
 position = Vector2(0, 8)
+
+[node name="Player" parent="." instance=ExtResource("1_t05r3")]
+position = Vector2(575, 248)
