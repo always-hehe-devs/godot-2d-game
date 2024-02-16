@@ -32,8 +32,10 @@ func _physics_process(delta):
 			_animated_sprite.play("Run")
 		if direction == -1:
 			_animated_sprite.flip_h = true
+			_animated_sprite.offset.x = -14
 		elif direction == 1:
 			_animated_sprite.flip_h = false
+			_animated_sprite.offset.x = 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		_animated_sprite.play("Idle")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctchd2fyjapkv"]
+
+[ext_resource type="Script" path="res://pig_mob.gd" id="1_ltilm"]
+[ext_resource type="Texture2D" uid="uid://bcjw1kjedw1pn" path="res://assets/03-Pig/Idle (34x28).png" id="2_w67pc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47l7n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w67pc")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cj8tb"]
+
+[node name="pig_mob" type="CharacterBody2D"]
+script = ExtResource("1_ltilm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_47l7n")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_cj8tb")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://6wiqs4hietn1"]
+[gd_scene load_steps=4 format=3 uid="uid://6wiqs4hietn1"]
 
 [ext_resource type="PackedScene" uid="uid://ba5it84dsu41e" path="res://player.tscn" id="1_t05r3"]
 [ext_resource type="PackedScene" uid="uid://daxf7h2hrg2nw" path="res://tile_map.tscn" id="2_cr020"]
+[ext_resource type="PackedScene" uid="uid://ctchd2fyjapkv" path="res://pig_mob.tscn" id="3_2oc60"]
 
 [node name="king_game" type="Node2D"]
 
@@ -18,3 +19,6 @@ position = Vector2(0, 8)
 
 [node name="Player" parent="." instance=ExtResource("1_t05r3")]
 position = Vector2(575, 248)
+
+[node name="pig_mob" parent="." instance=ExtResource("3_2oc60")]
+position = Vector2(241, 440)
