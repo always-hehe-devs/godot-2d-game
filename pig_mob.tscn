@@ -1,27 +1,162 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctchd2fyjapkv"]
+[gd_scene load_steps=23 format=3 uid="uid://ctchd2fyjapkv"]
 
 [ext_resource type="Script" path="res://pig_mob.gd" id="1_ltilm"]
 [ext_resource type="Texture2D" uid="uid://bcjw1kjedw1pn" path="res://assets/03-Pig/Idle (34x28).png" id="2_w67pc"]
+[ext_resource type="Texture2D" uid="uid://cvu8f8eo4cr6r" path="res://assets/03-Pig/Run (34x28).png" id="3_ylfsi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2bbb"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(0, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1nnu"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(34, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdon3"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(68, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nj05"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(102, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02p3h"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(136, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj0u2"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(170, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufh4k"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(204, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpa1c"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(238, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_leusb"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(272, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt84b"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(306, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr0y2"]
+atlas = ExtResource("2_w67pc")
+region = Rect2(340, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cchyy"]
+atlas = ExtResource("3_ylfsi")
+region = Rect2(0, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wkhp"]
+atlas = ExtResource("3_ylfsi")
+region = Rect2(34, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1b4uq"]
+atlas = ExtResource("3_ylfsi")
+region = Rect2(68, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsm4l"]
+atlas = ExtResource("3_ylfsi")
+region = Rect2(102, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36vo5"]
+atlas = ExtResource("3_ylfsi")
+region = Rect2(136, 0, 34, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62c03"]
+atlas = ExtResource("3_ylfsi")
+region = Rect2(170, 0, 34, 28)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_47l7n"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_w67pc")
+"texture": SubResource("AtlasTexture_x2bbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1nnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdon3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5nj05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02p3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj0u2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufh4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpa1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leusb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt84b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr0y2")
 }],
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cchyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wkhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1b4uq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsm4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36vo5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62c03")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cj8tb"]
+radius = 8.0
+height = 20.0
 
 [node name="pig_mob" type="CharacterBody2D"]
 script = ExtResource("1_ltilm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -5)
 sprite_frames = SubResource("SpriteFrames_47l7n")
-animation = &"Idle"
+animation = &"Run"
+frame = 4
+frame_progress = 0.641336
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cj8tb")
+
+[node name="RayCast2DRight" type="RayCast2D" parent="."]
+position = Vector2(8, 0)
+target_position = Vector2(0, 17)
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="."]
+position = Vector2(-8, 0)
+target_position = Vector2(0, 17)

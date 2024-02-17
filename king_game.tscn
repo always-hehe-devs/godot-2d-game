@@ -21,4 +21,4 @@ position = Vector2(0, 8)
 position = Vector2(575, 248)
 
 [node name="pig_mob" parent="." instance=ExtResource("3_2oc60")]
-position = Vector2(241, 440)
+position = Vector2(197, 445)
