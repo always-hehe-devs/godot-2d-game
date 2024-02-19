@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
+var health = 100.0
+const DAMAGE_RATE = 5.0
 var direction = 1;
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -28,7 +30,9 @@ func _physics_process(delta):
 		_animated_sprite.offset.x = 5
 	else:
 		_animated_sprite.flip_h = false
-		
+	
+	var overlapping_mobs = %CollisionShape2D.get_overlapping_bodies()
+	print(overlapping_mobs.size())
 	velocity.x = direction * SPEED
 	
 	move_and_slide()
