@@ -176,8 +176,7 @@ script = ExtResource("1_p5lvo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wbibq")
-animation = &"Fall"
-frame_progress = 0.239807
+animation = &"Idle"
 offset = Vector2(-14, 0)
 flip_h = true
 
