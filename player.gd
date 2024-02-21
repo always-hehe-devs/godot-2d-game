@@ -40,5 +40,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		_animated_sprite.play("Idle")
 
-	#
 	move_and_slide()
+
+func take_damage(damage):
+	print(damage)

@@ -1,4 +1,3 @@
-class_name HitBox
 extends Area2D
 
 @export var damage := 10
@@ -13,4 +12,3 @@ func on_direction_changed(facing_right: bool):
 	else:
 		scale.x = 1
 	pass
-

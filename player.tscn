@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://ba5it84dsu41e"]
+[gd_scene load_steps=29 format=3 uid="uid://ba5it84dsu41e"]
 
 [ext_resource type="Texture2D" uid="uid://ta8ubl37cj5n" path="res://assets/01-King Human/Idle (78x58).png" id="1_kdoui"]
 [ext_resource type="Script" path="res://player.gd" id="1_p5lvo"]
 [ext_resource type="Texture2D" uid="uid://b2lh5n84oepy4" path="res://assets/01-King Human/Fall (78x58).png" id="2_qu6mh"]
 [ext_resource type="Texture2D" uid="uid://blfogw5s3k0ee" path="res://assets/01-King Human/Jump (78x58).png" id="4_mlwdm"]
 [ext_resource type="Texture2D" uid="uid://cyxqlyf3dxj1" path="res://assets/01-King Human/Run (78x58).png" id="5_eodyy"]
+[ext_resource type="Script" path="res://hurt_box.gd" id="6_cg7il"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yfi3k"]
 atlas = ExtResource("1_kdoui")
@@ -170,6 +171,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fye3k"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0s7lp"]
+height = 26.0
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(8, -5)
 script = ExtResource("1_p5lvo")
@@ -183,3 +187,12 @@ flip_h = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-7, 5)
 shape = SubResource("RectangleShape2D_fye3k")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("6_cg7il")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-7, 2)
+shape = SubResource("CapsuleShape2D_0s7lp")
