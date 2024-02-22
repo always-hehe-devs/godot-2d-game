@@ -64,7 +64,6 @@ func _on_detect_area_area_entered(area):
 	if area.name == "HurtBox":
 		animation_player.play("Attack")
 
-
 func _on_detect_area_area_exited(area):
 	if area.name == "HurtBox":
 		animation_player.stop()

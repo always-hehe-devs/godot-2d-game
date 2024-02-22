@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ba5it84dsu41e"]
+[gd_scene load_steps=31 format=3 uid="uid://ba5it84dsu41e"]
 
 [ext_resource type="Texture2D" uid="uid://ta8ubl37cj5n" path="res://assets/01-King Human/Idle (78x58).png" id="1_kdoui"]
 [ext_resource type="Script" path="res://player.gd" id="1_p5lvo"]
@@ -174,6 +174,16 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0s7lp"]
 height = 26.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knj5k"]
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxlmn"]
+bg_color = Color(0.278431, 0.701961, 0.372549, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(8, -5)
 script = ExtResource("1_p5lvo")
@@ -196,3 +206,14 @@ script = ExtResource("6_cg7il")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-7, 2)
 shape = SubResource("CapsuleShape2D_0s7lp")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -37.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = -15.0
+theme_override_styles/background = SubResource("StyleBoxFlat_knj5k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pxlmn")
+value = 100.0
+show_percentage = false
