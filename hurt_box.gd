@@ -9,5 +9,6 @@ func _on_area_entered(area):
 		return
 	
 	if area.name == "HitBox":
+		print("here")
 		if owner.has_method("take_damage"):
 			owner.take_damage(area.damage)
