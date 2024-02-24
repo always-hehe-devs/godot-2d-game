@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ba5it84dsu41e"]
+[gd_scene load_steps=25 format=3 uid="uid://ba5it84dsu41e"]
 
 [ext_resource type="Texture2D" uid="uid://ta8ubl37cj5n" path="res://assets/01-King Human/Idle (78x58).png" id="1_kdoui"]
 [ext_resource type="Script" path="res://player.gd" id="1_p5lvo"]
+[ext_resource type="Texture2D" uid="uid://crob7dlje7m8f" path="res://assets/01-King Human/Attack (78x58).png" id="5_ar0ph"]
 [ext_resource type="Texture2D" uid="uid://cyxqlyf3dxj1" path="res://assets/01-King Human/Run (78x58).png" id="5_eodyy"]
 [ext_resource type="Script" path="res://hurt_box.gd" id="6_cg7il"]
+[ext_resource type="Script" path="res://player_hit_box.gd" id="6_j1jdc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fye3k"]
 
@@ -19,6 +21,70 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="Animation" id="Animation_lh720"]
+resource_name = "Attack"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_ar0ph")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitBox/CollisionPolygon2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, false]
+}
 
 [sub_resource type="Animation" id="Animation_8qi4t"]
 resource_name = "Idle"
@@ -178,10 +244,14 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dvmct"]
 _data = {
+"Attack": SubResource("Animation_lh720"),
 "Idle": SubResource("Animation_8qi4t"),
 "RESET": SubResource("Animation_8ary3"),
 "Run": SubResource("Animation_636ex")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w803s"]
+animation = &"Attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tv5xs"]
 animation = &"Idle"
@@ -200,13 +270,23 @@ advance_condition = &"is_moving"
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_02en0"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8fusc"]
+switch_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_m2pkt"]
+states/Attack/node = SubResource("AnimationNodeAnimation_w803s")
+states/Attack/position = Vector2(438.598, 46)
 states/Idle/node = SubResource("AnimationNodeAnimation_tv5xs")
-states/Idle/position = Vector2(335, 100)
+states/Idle/position = Vector2(358, 136)
 states/Run/node = SubResource("AnimationNodeAnimation_wuq8e")
-states/Run/position = Vector2(480, 100)
-states/Start/position = Vector2(187, 100)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_ewrps"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_uswr7"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_j35om")]
+states/Run/position = Vector2(503, 136)
+states/Start/position = Vector2(210, 136)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_ewrps"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_uswr7"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_j35om"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_02en0"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_8fusc")]
+graph_offset = Vector2(38.9551, 0)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(8, -5)
@@ -244,10 +324,12 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_m2pkt")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
 parameters/conditions/idle = false
 parameters/conditions/is_moving = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_dvmct")
 }
@@ -255,3 +337,10 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_kdoui")
 hframes = 11
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("6_j1jdc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+polygon = PackedVector2Array(5, -23, 28, -23, 40, -6, 37, 14, 18, 29, -11, 27, -21, 16, 5, 15)
+disabled = true
