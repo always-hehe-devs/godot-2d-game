@@ -45,10 +45,10 @@ func update_animation_parameteres():
 	if Input.is_action_just_pressed("ui_select"):
 		state_machine.travel("Attack")
 		return
-	if velocity.x != 0:
-		state_machine.travel("Run")
-	else:
-		state_machine.travel("Idle")
+	#if velocity.x != 0:
+		#state_machine.travel("Run")
+	#else:
+		#state_machine.travel("Idle")
 	
 func update_facing_direction():
 	if direction < 0: 
@@ -62,5 +62,6 @@ func update_facing_direction():
 		
 func take_damage(damage):
 	health -= damage;
+	state_machine.travel("Hit")
 	%ProgressBar.value = health;
 	print(damage)

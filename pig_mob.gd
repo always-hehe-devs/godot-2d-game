@@ -26,7 +26,7 @@ func _physics_process(delta):
 	
 	velocity.x = direction * SPEED
 	
-	if velocity.x != 0 && animation_player.current_animation != "Attack":
+	if velocity.x != 0 && animation_player.current_animation != "Attack" && animation_player.current_animation != "Hit":
 		animation_player.play("Run")
 	
 	move_and_slide()
@@ -62,6 +62,7 @@ func set_direction():
 
 func take_damage(damage):
 	print("damage taken")
+	animation_player.play("Hit")
 	%ProgressBar.value = health;
 	health -= damage;
 
