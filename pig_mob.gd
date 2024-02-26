@@ -61,10 +61,10 @@ func set_direction():
 	emit_signal("direction_changed", direction > 0)
 
 func take_damage(damage):
-	print("damage taken")
+	print("damage taken",damage)
 	animation_player.play("Hit")
-	%ProgressBar.value = health;
 	health -= damage;
+	%ProgressBar.value = health;
 
 func _on_detect_area_area_entered(area):
 	if area.name == "HurtBox":

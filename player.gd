@@ -17,6 +17,7 @@ signal direction_changed(facing_right: bool)
 func _ready():
 	state_machine = animation_tree.get("parameters/playback")
 	state_machine.start("Idle")
+	animation_tree.active = true
 	
 func _physics_process(delta):
 
@@ -45,10 +46,10 @@ func update_animation_parameteres():
 	if Input.is_action_just_pressed("ui_select"):
 		state_machine.travel("Attack")
 		return
-	#if velocity.x != 0:
-		#state_machine.travel("Run")
-	#else:
-		#state_machine.travel("Idle")
+	if velocity.x != 0:
+		state_machine.travel("Run")
+	else:
+		state_machine.travel("Idle")
 	
 func update_facing_direction():
 	if direction < 0: 
