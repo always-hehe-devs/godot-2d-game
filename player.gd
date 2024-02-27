@@ -65,4 +65,3 @@ func take_damage(damage):
 	health -= damage;
 	state_machine.travel("Hit")
 	%ProgressBar.value = health;
-	print(damage)

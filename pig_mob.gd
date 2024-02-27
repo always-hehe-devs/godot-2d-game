@@ -13,10 +13,24 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var _ray_cast_left = $RayCast2DLeft
 @onready var animation_player = $AnimationPlayer
 @onready var animations = $Animations
+@onready var animation_tree = $AnimationTree
+
+var is_dead = false;
+var state_machine
+var is_attacking = false;
 
 signal direction_changed(facing_right: bool)
 
+func _ready():
+	state_machine = animation_tree.get("parameters/playback")
+	state_machine.start("Run")
+	animation_tree.active = true
+
 func _physics_process(delta):
+	
+	if is_dead:
+		state_machine.travel("Dead")
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -25,9 +39,11 @@ func _physics_process(delta):
 	update_sprite_direction()
 	
 	velocity.x = direction * SPEED
-	
-	if velocity.x != 0 && animation_player.current_animation != "Attack" && animation_player.current_animation != "Hit":
-		animation_player.play("Run")
+
+	if is_attacking:
+		state_machine.travel("Attack")
+	elif velocity.x != 0:
+		state_machine.travel("Run")
 	
 	move_and_slide()
 
@@ -61,15 +77,16 @@ func set_direction():
 	emit_signal("direction_changed", direction > 0)
 
 func take_damage(damage):
-	print("damage taken",damage)
-	animation_player.play("Hit")
+	state_machine.travel("Hit")
 	health -= damage;
 	%ProgressBar.value = health;
-
+	if health <=0:
+		is_dead = true
+	
 func _on_detect_area_area_entered(area):
-	if area.name == "HurtBox":
-		animation_player.play("Attack")
+	if area.name == "PlayerHurtBox":
+		is_attacking = true
 
 func _on_detect_area_area_exited(area):
-	if area.name == "HurtBox":
-		animation_player.set_current_animation("Run")
+	if area.name == "PlayerHurtBox":
+		is_attacking = false

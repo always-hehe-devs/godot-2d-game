@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://ctchd2fyjapkv"]
+[gd_scene load_steps=37 format=3 uid="uid://ctchd2fyjapkv"]
 
 [ext_resource type="Script" path="res://pig_mob.gd" id="1_ltilm"]
 [ext_resource type="Texture2D" uid="uid://u7pa5kww6clh" path="res://assets/03-Pig/Idle (34x28).png" id="2_4vt7e"]
 [ext_resource type="Texture2D" uid="uid://clji27d6wymrv" path="res://assets/03-Pig/Run (34x28).png" id="3_ylfsi"]
 [ext_resource type="Texture2D" uid="uid://dcyuiq7m32r7p" path="res://assets/03-Pig/Attack (34x28).png" id="4_sej8j"]
 [ext_resource type="Texture2D" uid="uid://bvkf3it7lkqx8" path="res://assets/03-Pig/Hit (34x28).png" id="5_04rgq"]
+[ext_resource type="Texture2D" uid="uid://t6d8ea5sm53f" path="res://assets/03-Pig/Dead (34x28).png" id="6_ap5g0"]
 [ext_resource type="Script" path="res://pig_hit_box.gd" id="6_duqda"]
 [ext_resource type="Script" path="res://detect_area.gd" id="7_us0t5"]
 [ext_resource type="Script" path="res://hurt_box.gd" id="8_an51p"]
@@ -287,9 +288,62 @@ tracks/3/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_bvdru"]
+resource_name = "Dead"
+length = 0.34
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animations:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_ap5g0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animations:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animations:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Animations:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4pfjp"]
 _data = {
 "Attack": SubResource("Animation_mohos"),
+"Dead": SubResource("Animation_bvdru"),
 "Hit": SubResource("Animation_0pkv4"),
 "Idle": SubResource("Animation_n0jxu"),
 "RESET": SubResource("Animation_bv5xv"),
@@ -318,6 +372,47 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lceol"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_665gn"]
+animation = &"Dead"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pmmls"]
+animation = &"Hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d7i4j"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dkesg"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6bfnn"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hxnwf"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_re1i1"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kiv77"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ki47"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ukxvy"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3ea7i"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ldbck"]
+states/Attack/node = SubResource("AnimationNodeAnimation_lceol")
+states/Attack/position = Vector2(432, 29)
+states/Dead/node = SubResource("AnimationNodeAnimation_665gn")
+states/Dead/position = Vector2(541, 100)
+states/Hit/node = SubResource("AnimationNodeAnimation_pmmls")
+states/Hit/position = Vector2(432, 187)
+states/Run/node = SubResource("AnimationNodeAnimation_d7i4j")
+states/Run/position = Vector2(331, 100)
+transitions = ["Start", "Run", SubResource("AnimationNodeStateMachineTransition_dkesg"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_6bfnn"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_hxnwf"), "Run", "Hit", SubResource("AnimationNodeStateMachineTransition_re1i1"), "Hit", "Run", SubResource("AnimationNodeStateMachineTransition_kiv77"), "Attack", "Dead", SubResource("AnimationNodeStateMachineTransition_6ki47"), "Run", "Dead", SubResource("AnimationNodeStateMachineTransition_ukxvy"), "Hit", "Dead", SubResource("AnimationNodeStateMachineTransition_3ea7i")]
 
 [node name="pig_mob" type="CharacterBody2D"]
 script = ExtResource("1_ltilm")
@@ -361,7 +456,6 @@ script = ExtResource("6_duqda")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-12, -6)
 shape = SubResource("RectangleShape2D_wehe0")
-disabled = true
 debug_color = Color(0.886275, 0.317647, 0.25098, 0.419608)
 
 [node name="DetectArea" type="Area2D" parent="."]
@@ -390,6 +484,13 @@ theme_override_styles/background = SubResource("StyleBoxFlat_xwpqj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_wsdr0")
 value = 100.0
 show_percentage = false
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4pfjp")
+}
+tree_root = SubResource("AnimationNodeStateMachine_ldbck")
+anim_player = NodePath("../AnimationPlayer")
 
 [connection signal="body_entered" from="FollowArea" to="." method="_on_detection_area_2d_body_entered"]
 [connection signal="body_exited" from="FollowArea" to="." method="_on_detection_area_2d_body_exited"]
