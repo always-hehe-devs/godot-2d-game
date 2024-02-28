@@ -5,10 +5,12 @@ class_name State
 var playback
 var player
 var next_state: State
+var move_component
 
-func setup(playback, player):
+func setup(playback, player, move_component):
 	self.playback = playback
 	self.player = player
+	self.move_component = move_component
 
 func state_process(_delta):
 	pass

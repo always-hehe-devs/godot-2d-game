@@ -15,6 +15,12 @@ func move():
 	
 func jump():
 	next_state = $"../Air"
-
+	
+func state_process(_delta):
+	var direction = move_component.get_movement_direction()
+	
+	if direction == 0:
+		player.velocity.x = move_toward(player.velocity.x, 0, 300)
+	
 func on_enter():
-	playback.travel("Idle")
+		playback.travel("Idle")

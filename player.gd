@@ -21,17 +21,14 @@ func _ready():
 	
 func _physics_process(delta):
 
-	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+	
 
 	if Input.is_action_just_pressed("ui_select"):
 		attack()
 	move_and_slide()
 	
-func run():
-	state_machine.travel("Run")
-		
 func attack():
 	state_machine.travel("Attack")
 	

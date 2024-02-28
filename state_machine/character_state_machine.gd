@@ -7,12 +7,13 @@ var states: Array[State]
 @onready var current_state: State = $Ground
 @onready var playback = $"../AnimationTree".get("parameters/playback")
 @onready var player = $".."
+@onready var move_component = $"../move_component"
 
 func _ready():
 	for state in get_children():
 		if state is State:
 			states.append(state)
-			state.setup(playback, player)
+			state.setup(playback, player,move_component)
 		else:
 			push_warning("Not a child")
 
@@ -25,9 +26,9 @@ func switch_state(new_state: State):
 	if current_state != null:
 		current_state.on_exit();
 		current_state.next_state = null
+
+	new_state.on_enter()
 	current_state = new_state
 	
-	current_state.on_enter()
-
 func _input(event: InputEvent):
 	current_state.state_input(event)

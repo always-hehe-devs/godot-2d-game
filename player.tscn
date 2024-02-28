@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ba5it84dsu41e"]
+[gd_scene load_steps=40 format=3 uid="uid://ba5it84dsu41e"]
 
 [ext_resource type="Texture2D" uid="uid://ta8ubl37cj5n" path="res://assets/01-King Human/Idle (78x58).png" id="1_kdoui"]
 [ext_resource type="Script" path="res://player.gd" id="1_p5lvo"]
@@ -7,10 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://cxyw3ne5j6mfy" path="res://assets/01-King Human/Hit (78x58).png" id="6_885t3"]
 [ext_resource type="Script" path="res://hurt_box.gd" id="6_cg7il"]
 [ext_resource type="Script" path="res://player_hit_box.gd" id="6_j1jdc"]
-[ext_resource type="Script" path="res://character_state_machine.gd" id="8_a8m6r"]
-[ext_resource type="Script" path="res://ground_state.gd" id="9_11fok"]
-[ext_resource type="Script" path="res://air_state.gd" id="10_665oq"]
-[ext_resource type="Script" path="res://move_state.gd" id="11_pw1d5"]
+[ext_resource type="Script" path="res://state_machine/character_state_machine.gd" id="8_a8m6r"]
+[ext_resource type="Script" path="res://state_machine/ground_state.gd" id="9_11fok"]
+[ext_resource type="Script" path="res://state_machine/air_state.gd" id="10_665oq"]
+[ext_resource type="Script" path="res://state_machine/move_state.gd" id="11_pw1d5"]
+[ext_resource type="Script" path="res://label.gd" id="12_y5hdr"]
+[ext_resource type="Script" path="res://move_component.gd" id="13_g52d6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fye3k"]
 
@@ -439,3 +441,14 @@ script = ExtResource("10_665oq")
 
 [node name="Move" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("11_pw1d5")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -53.0
+offset_right = 16.0
+offset_bottom = -30.0
+text = "State"
+script = ExtResource("12_y5hdr")
+
+[node name="move_component" type="Node" parent="."]
+script = ExtResource("13_g52d6")
