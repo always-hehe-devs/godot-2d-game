@@ -5,7 +5,7 @@ extends Area2D
 @onready var player = $"..";
 
 func _ready():
-	player.connect("direction_changed",on_direction_changed)
+	Events.connect("player_direction_changed",on_direction_changed)
 	
 func on_direction_changed(facing_right: bool):
 	if facing_right:
