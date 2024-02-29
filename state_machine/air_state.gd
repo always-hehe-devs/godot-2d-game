@@ -9,9 +9,13 @@ const JUMP_VELOCITY = -400.0
 
 func on_enter():
 	player.velocity.y = JUMP_VELOCITY
+	playback.travel("Jump")
 	player.move_and_slide()
 
 func state_process(_delta):
+	print(player.velocity.y)
+	if(player.velocity.y > 0):
+		playback.travel("Fall")
 	var direction = move_component.get_movement_direction()
 	
 	if player.is_on_floor():
