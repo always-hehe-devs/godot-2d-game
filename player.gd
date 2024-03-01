@@ -24,7 +24,6 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
-
 	if Input.is_action_just_pressed("ui_select"):
 		attack()
 	move_and_slide()

@@ -13,9 +13,9 @@ func on_enter():
 	player.move_and_slide()
 
 func state_process(_delta):
-	print(player.velocity.y)
 	if(player.velocity.y > 0):
 		playback.travel("Fall")
+		
 	var direction = move_component.get_movement_direction()
 	
 	if player.is_on_floor():
