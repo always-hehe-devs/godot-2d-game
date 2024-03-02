@@ -441,8 +441,6 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uswr7"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j35om"]
-advance_mode = 2
-advance_condition = &"idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_02en0"]
 advance_mode = 2
@@ -459,15 +457,11 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8wdgl"]
 switch_mode = 2
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_56anh"]
-switch_mode = 1
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o8y6i"]
 switch_mode = 2
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cgfsc"]
 
@@ -535,7 +529,6 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_m2pkt")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/attack = false
-parameters/conditions/idle = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
