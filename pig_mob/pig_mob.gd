@@ -27,9 +27,7 @@ func _ready():
 	animation_tree.active = true
 	Events.connect("on_hit",take_damage)
 
-			
 func _physics_process(delta):
-	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
