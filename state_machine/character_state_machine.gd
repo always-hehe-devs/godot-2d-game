@@ -14,6 +14,7 @@ func _ready():
 		if state is State:
 			states.append(state)
 			state.setup(playback, player,move_component)
+			state.connect("interrupt_state", on_state_interrupt)
 		else:
 			push_warning("Not a child")
 
@@ -32,3 +33,6 @@ func switch_state(new_state: State):
 	
 func _input(event: InputEvent):
 	current_state.state_input(event)
+
+func on_state_interrupt(new_state:State):
+	switch_state(new_state)

@@ -7,6 +7,8 @@ var player
 var next_state: State
 var move_component
 
+signal interrupt_state(new_state:State)
+
 func setup(playback, player, move_component):
 	self.playback = playback
 	self.player = player

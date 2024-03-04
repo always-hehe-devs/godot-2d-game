@@ -41,5 +41,4 @@ func on_direction_changed(facing_right):
 		
 func take_damage(damage):
 	health -= damage;
-	state_machine.travel("Hit")
 	%ProgressBar.value = health;
