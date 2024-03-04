@@ -456,6 +456,7 @@ script = ExtResource("6_duqda")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-12, -6)
 shape = SubResource("RectangleShape2D_wehe0")
+disabled = true
 debug_color = Color(0.886275, 0.317647, 0.25098, 0.419608)
 
 [node name="DetectArea" type="Area2D" parent="."]

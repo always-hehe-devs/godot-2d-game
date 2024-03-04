@@ -20,11 +20,12 @@ var state_machine
 var is_attacking = false;
 
 signal direction_changed(facing_right: bool)
-
+	
 func _ready():
 	state_machine = animation_tree.get("parameters/playback")
 	state_machine.start("Run")
 	animation_tree.active = true
+	Events.connect("on_hit",take_damage)
 
 func _physics_process(delta):
 	
@@ -76,12 +77,14 @@ func set_direction():
 	
 	emit_signal("direction_changed", direction > 0)
 
-func take_damage(damage):
-	state_machine.travel("Hit")
-	health -= damage;
-	%ProgressBar.value = health;
-	if health <=0:
-		is_dead = true
+func take_damage(owner_name, damage):
+	if owner_name == self.name:
+		state_machine.travel("Hit")
+		health -= damage;
+
+		%ProgressBar.value = health;
+		if health <=0:
+			is_dead = true
 	
 func _on_detect_area_area_entered(area):
 	if area.name == "PlayerHurtBox":

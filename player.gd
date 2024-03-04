@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
-
 var health = 100.0
 var direction
 
@@ -14,8 +12,6 @@ var state_machine
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	state_machine = animation_tree.get("parameters/playback")
-	state_machine.start("Idle")
 	animation_tree.active = true
 	Events.connect("player_direction_changed", on_direction_changed)
 	
@@ -23,13 +19,8 @@ func _physics_process(delta):
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	
-	if Input.is_action_just_pressed("ui_select"):
-		attack()
 	move_and_slide()
 	
-func attack():
-	state_machine.travel("Attack")
 	
 func on_direction_changed(facing_right):
 	if facing_right: 

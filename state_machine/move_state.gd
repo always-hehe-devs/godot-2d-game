@@ -2,7 +2,6 @@ extends State
 
 class_name MoveState
 
-var direction
 const SPEED = 300.0
 
 signal direction_changed(facing_right: bool)

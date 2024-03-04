@@ -3,7 +3,7 @@ extends Node
 var fresh_direction
 var direction
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_pressed("ui_right"):
 		fresh_direction = 1
 	elif Input.is_action_pressed("ui_left"):

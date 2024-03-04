@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://ba5it84dsu41e"]
+[gd_scene load_steps=53 format=3 uid="uid://ba5it84dsu41e"]
 
 [ext_resource type="Texture2D" uid="uid://ta8ubl37cj5n" path="res://assets/01-King Human/Idle (78x58).png" id="1_kdoui"]
 [ext_resource type="Script" path="res://player.gd" id="1_p5lvo"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://state_machine/ground_state.gd" id="9_11fok"]
 [ext_resource type="Script" path="res://state_machine/air_state.gd" id="10_665oq"]
 [ext_resource type="Script" path="res://state_machine/move_state.gd" id="11_pw1d5"]
+[ext_resource type="Script" path="res://attack_state.gd" id="11_rem3a"]
 [ext_resource type="Script" path="res://label.gd" id="12_y5hdr"]
 [ext_resource type="Script" path="res://move_component.gd" id="13_g52d6"]
 [ext_resource type="Script" path="res://hit_state.gd" id="14_ub3o0"]
@@ -550,6 +551,9 @@ disabled = true
 
 [node name="CharacterStateMachine" type="Node" parent="."]
 script = ExtResource("8_a8m6r")
+
+[node name="Attack" type="Node" parent="CharacterStateMachine"]
+script = ExtResource("11_rem3a")
 
 [node name="Ground" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("9_11fok")

@@ -9,4 +9,4 @@ func _on_area_entered(area):
 		return
 
 	if area.name == "HitBox":
-		Events.emit_signal("player_on_hit", area.damage)
+		Events.emit_signal("on_hit",owner.name, area.damage)
