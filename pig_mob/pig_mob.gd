@@ -15,47 +15,50 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animations = $Animations
 @onready var animation_tree = $AnimationTree
 
-var is_dead = false;
 var state_machine
-var is_attacking = false;
+
+enum MOB_STATE {MOVE, ATTACK, FOLLOW, HIT, DEAD}
+var current_state = MOB_STATE.MOVE
 
 signal direction_changed(facing_right: bool)
 	
 func _ready():
 	state_machine = animation_tree.get("parameters/playback")
-	state_machine.start("Run")
 	animation_tree.active = true
 	Events.connect("on_hit",take_damage)
 
+			
 func _physics_process(delta):
 	
-	if is_dead:
-		state_machine.travel("Dead")
-		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		
-	set_direction()
-	update_sprite_direction()
 	
-	velocity.x = direction * SPEED
-
-	if is_attacking:
-		state_machine.travel("Attack")
-	elif velocity.x != 0:
-		state_machine.travel("Run")
+	match current_state:
+		MOB_STATE.DEAD:
+			state_machine.travel("Dead")
+		MOB_STATE.MOVE:
+			set_direction()
+			velocity.x = direction * SPEED
+			state_machine.travel("Run")
+			update_sprite_direction()
+		MOB_STATE.ATTACK:
+			state_machine.travel("Attack")
+		MOB_STATE.FOLLOW:
+			state_machine.travel("Run")
+		MOB_STATE.HIT:
+			state_machine.travel("Hit")
 	
 	move_and_slide()
 
 func _on_detection_area_2d_body_entered(body):
 	if body.name == "Player":
-		is_following = true
 		direction = round(global_position.direction_to(body.global_position).x)
+		switch_state(MOB_STATE.FOLLOW)
 
 func _on_detection_area_2d_body_exited(body):
 	if body.name == "Player":
-		is_following = false
+		switch_state(MOB_STATE.MOVE)
 
 func update_sprite_direction():
 	if direction < 0: 
@@ -66,30 +69,34 @@ func update_sprite_direction():
 		animations.offset.x = 5
 
 func set_direction():
-	if is_on_wall() && !is_following:
+	if is_on_wall():
 		direction = direction *-1
-	
+		
 	if not _ray_cast_right.is_colliding():
 		direction = -1
-	
+		
 	if not _ray_cast_left.is_colliding():
 		direction = 1
 	
 	emit_signal("direction_changed", direction > 0)
-
+	
 func take_damage(owner_name, damage):
 	if owner_name == self.name:
-		state_machine.travel("Hit")
+		switch_state(MOB_STATE.HIT)
 		health -= damage;
 
 		%ProgressBar.value = health;
 		if health <=0:
-			is_dead = true
+			switch_state(MOB_STATE.DEAD)
 	
 func _on_detect_area_area_entered(area):
 	if area.name == "PlayerHurtBox":
-		is_attacking = true
+		switch_state(MOB_STATE.ATTACK)
 
 func _on_detect_area_area_exited(area):
 	if area.name == "PlayerHurtBox":
-		is_attacking = false
+		switch_state(MOB_STATE.MOVE)
+
+func switch_state(new_state):
+	if current_state != MOB_STATE.DEAD:
+		current_state = new_state

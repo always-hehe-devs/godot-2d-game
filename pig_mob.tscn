@@ -1,13 +1,13 @@
 [gd_scene load_steps=37 format=3 uid="uid://ctchd2fyjapkv"]
 
-[ext_resource type="Script" path="res://pig_mob.gd" id="1_ltilm"]
+[ext_resource type="Script" path="res://pig_mob/pig_mob.gd" id="1_ltilm"]
 [ext_resource type="Texture2D" uid="uid://u7pa5kww6clh" path="res://assets/03-Pig/Idle (34x28).png" id="2_4vt7e"]
 [ext_resource type="Texture2D" uid="uid://clji27d6wymrv" path="res://assets/03-Pig/Run (34x28).png" id="3_ylfsi"]
 [ext_resource type="Texture2D" uid="uid://dcyuiq7m32r7p" path="res://assets/03-Pig/Attack (34x28).png" id="4_sej8j"]
 [ext_resource type="Texture2D" uid="uid://bvkf3it7lkqx8" path="res://assets/03-Pig/Hit (34x28).png" id="5_04rgq"]
 [ext_resource type="Texture2D" uid="uid://t6d8ea5sm53f" path="res://assets/03-Pig/Dead (34x28).png" id="6_ap5g0"]
-[ext_resource type="Script" path="res://pig_hit_box.gd" id="6_duqda"]
-[ext_resource type="Script" path="res://detect_area.gd" id="7_us0t5"]
+[ext_resource type="Script" path="res://pig_mob/pig_hit_box.gd" id="6_duqda"]
+[ext_resource type="Script" path="res://pig_mob/detect_area.gd" id="7_us0t5"]
 [ext_resource type="Script" path="res://hurt_box.gd" id="8_an51p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cj8tb"]

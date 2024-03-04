@@ -11,5 +11,3 @@ func on_enter():
 func state_process(_delta):
 	if player.is_on_floor():
 		next_state = ground_state
-	else:
-		next_state = air_state

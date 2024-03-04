@@ -12,6 +12,10 @@ func on_enter():
 	playback.travel("Jump")
 	player.move_and_slide()
 
+func state_input(event: InputEvent):
+	if Input.is_action_just_pressed("ui_select"):
+		next_state = $"../Attack"
+		
 func state_process(_delta):
 	if(player.velocity.y > 0):
 		playback.travel("Fall")
