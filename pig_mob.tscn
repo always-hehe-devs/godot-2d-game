@@ -473,8 +473,8 @@ position = Vector2(-12, -6)
 shape = SubResource("RectangleShape2D_ejk21")
 
 [node name="HurtBox" type="Area2D" parent="."]
-light_mask = 2
-visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("8_an51p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
