@@ -40,8 +40,8 @@ func _physics_process(delta):
 			velocity.x = direction * SPEED
 			state_machine.travel("Run")
 			update_sprite_direction()
-		MOB_STATE.ATTACK:
-			state_machine.travel("Attack")
+		#MOB_STATE.ATTACK:
+			#state_machine.travel("Attack")
 		MOB_STATE.FOLLOW:
 			state_machine.travel("Run")
 		MOB_STATE.HIT:
@@ -79,6 +79,9 @@ func set_direction():
 	emit_signal("direction_changed", direction > 0)
 	
 func take_damage(owner_name, damage):
+	print("pig mob "+owner_name + str(damage))
+	if current_state == MOB_STATE.DEAD:
+		return
 	if owner_name == self.name:
 		switch_state(MOB_STATE.HIT)
 		health -= damage;

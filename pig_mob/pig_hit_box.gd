@@ -1,10 +1,9 @@
-class_name HitBox
-extends Area2D
+extends HitBox
 
-@export var damage := 10
 @onready var pig_mob = $"..";
 
 func _ready():
+	damage = 10
 	pig_mob.connect("direction_changed",on_direction_changed)
 	
 func on_direction_changed(facing_right: bool):

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://cannonball.gd" id="1_70o1y"]
 [ext_resource type="Texture2D" uid="uid://dh8a6h2rr7jki" path="res://assets/10-Cannon/Cannon Ball.png" id="1_mpxcr"]
-[ext_resource type="Script" path="res://hurt_box.gd" id="3_wrm35"]
+[ext_resource type="Script" path="res://cannonball_hitbox.gd" id="3_5vd11"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ud1c"]
 radius = 6.0
@@ -14,15 +14,19 @@ script = ExtResource("1_70o1y")
 position = Vector2(-7, -5)
 texture = ExtResource("1_mpxcr")
 
-[node name="Hitbox" type="Area2D" parent="."]
-monitoring = false
-script = ExtResource("3_wrm35")
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("3_5vd11")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_6ud1c")
+debug_color = Color(0.921569, 0.129412, 0.611765, 0.419608)
 
 [node name="ImpactDetector" type="Area2D" parent="."]
-monitoring = false
+collision_layer = 3
+collision_mask = 3
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ImpactDetector"]
 shape = SubResource("CircleShape2D_6ud1c")
+
+[connection signal="body_entered" from="ImpactDetector" to="." method="_on_impact_detector_body_entered"]

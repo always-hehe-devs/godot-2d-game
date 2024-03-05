@@ -133,3 +133,9 @@ sprite_frames = SubResource("SpriteFrames_81lci")
 animation = &"Fire"
 frame = 2
 frame_progress = 0.300257
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.371
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

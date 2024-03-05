@@ -1,1 +1,4 @@
-extends Area2D
+extends HitBox
+
+func _ready():
+	damage = 30

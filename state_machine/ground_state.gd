@@ -3,22 +3,13 @@ extends State
 class_name GroundState
 
 func state_input(event: InputEvent):
-	if event.is_action_pressed("ui_up"):
-		jump()
-	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
-		move()
-	if Input.is_action_just_pressed("ui_select"):
-		attack()
+	if event.is_action("ui_up"):
+		next_state = $"../Air"
+	if event.is_action("ui_left") or event.is_action("ui_right"):
+		next_state = $"../Move"
+	if event.is_action("ui_select"):
+		next_state = $"../Attack"
 		
-func move():
-	next_state = $"../Move"
-	
-func jump():
-	next_state = $"../Air"
-
-func attack():
-	next_state = $"../Attack"
-	
 func state_process(_delta):
 	var direction = move_component.get_movement_direction()
 	

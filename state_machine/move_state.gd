@@ -12,6 +12,10 @@ func on_enter():
 func state_input(event: InputEvent):
 	if event.is_action_pressed("ui_up"):
 		next_state = $"../Air"
+	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
+		next_state = $"../Move"
+	if Input.is_action_just_pressed("ui_select"):
+		next_state = $"../Attack"
 		
 func state_process(_delta):
 	var direction = move_component.get_movement_direction()

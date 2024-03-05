@@ -21,7 +21,6 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	move_and_slide()
 	
-	
 func on_direction_changed(facing_right):
 	if facing_right: 
 		sprite.flip_h = false
@@ -31,5 +30,6 @@ func on_direction_changed(facing_right):
 		sprite.offset.x = -15
 		
 func take_damage(damage):
+	print('player taken damage '+ str(damage))
 	health -= damage;
 	%ProgressBar.value = health;
