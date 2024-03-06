@@ -33,9 +33,9 @@ func _physics_process(delta):
 func shoot():
 	animations.play("LightCannon")
 	cannon_animations.play("Fire")
-	#var cannonball_instance = CannonBallScene.instantiate()
-	#cannonball_instance.direction = global_position.direction_to(player.global_position)
-	#add_child(cannonball_instance)
+	var cannonball_instance = CannonBallScene.instantiate()
+	cannonball_instance.direction = global_position.direction_to(player.global_position)
+	add_child(cannonball_instance)
 	switch_state(MOB_STATE.HIT)
 	
 func update_sprite_direction():

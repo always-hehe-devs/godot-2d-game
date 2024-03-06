@@ -11,5 +11,6 @@ func _physics_process(delta):
 	position += direction * speed * delta
 	
 func _on_impact_detector_body_entered(body):
+	print('here')
 	if body.name != 'cannon_pig':
 		queue_free()
