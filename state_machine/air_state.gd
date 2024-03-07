@@ -8,9 +8,10 @@ class_name AirState
 const JUMP_VELOCITY = -400.0
 
 func on_enter():
-	player.velocity.y = JUMP_VELOCITY
-	playback.travel("Jump")
-	player.move_and_slide()
+	if player.is_on_floor():
+		player.velocity.y = JUMP_VELOCITY
+		playback.travel("Jump")
+		player.move_and_slide()
 
 func state_input(_event: InputEvent):
 	if Input.is_action_pressed("ui_select"):

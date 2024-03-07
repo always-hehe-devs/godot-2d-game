@@ -11,9 +11,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animations = $AnimatedSprite2D
 @onready var cannon_animations = $CannonAnimation
+@onready var cannon_timer: Timer = $CannonTimer
 
-enum MOB_STATE {FIRE, ATTACK, HIT, DEAD}
-var current_state = MOB_STATE.HIT
+enum MOB_STATE {FIRE, ATTACK, HIT, AIMING, SCANNING, DEAD}
+var current_state = MOB_STATE.SCANNING
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -24,6 +25,10 @@ func _physics_process(delta):
 			print('dead')
 		MOB_STATE.ATTACK:
 			print('attack')
+		MOB_STATE.AIMING:
+			if cannon_timer.is_stopped():
+				print('timer')
+				cannon_timer.start(1)
 		MOB_STATE.FIRE:
 			shoot()
 
@@ -36,7 +41,6 @@ func shoot():
 	var cannonball_instance = CannonBallScene.instantiate()
 	cannonball_instance.direction = global_position.direction_to(player.global_position)
 	add_child(cannonball_instance)
-	switch_state(MOB_STATE.HIT)
 	
 func update_sprite_direction():
 	if direction < 0: 
@@ -57,15 +61,17 @@ func take_damage(owner_name, damage):
 	
 func _on_detect_area_area_entered(area):
 	if area.name == "PlayerHurtBox":
-		switch_state(MOB_STATE.ATTACK)
+		switch_state(MOB_STATE.AIMING)
 
 func _on_detect_area_area_exited(area):
 	if area.name == "PlayerHurtBox":
-		switch_state(MOB_STATE.FIRE)
+		switch_state(MOB_STATE.SCANNING)
 
 func switch_state(new_state):
 	if current_state != MOB_STATE.DEAD:
 		current_state = new_state
 
 func _on_timer_timeout():
-	switch_state(MOB_STATE.FIRE)
+	print('here')
+	if current_state == MOB_STATE.AIMING:
+		switch_state(MOB_STATE.FIRE)

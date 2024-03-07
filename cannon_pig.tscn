@@ -98,8 +98,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pnsjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkdy5")
 }],
-"loop": true,
+"loop": false,
 "name": &"Fire",
 "speed": 5.0
 }]
@@ -131,11 +134,19 @@ show_percentage = false
 position = Vector2(-28, 0)
 sprite_frames = SubResource("SpriteFrames_81lci")
 animation = &"Fire"
-frame = 2
-frame_progress = 0.300257
 
-[node name="Timer" type="Timer" parent="."]
+[node name="CannonTimer" type="Timer" parent="."]
 wait_time = 2.371
-autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="CannonDetectArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CannonDetectArea"]
+position = Vector2(-76.3628, -22.4849)
+scale = Vector2(2.74743, 1.68561)
+polygon = PackedVector2Array(17.9669, 13.9326, -241, -91, -240, 107)
+
+[connection signal="timeout" from="CannonTimer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="CannonDetectArea" to="." method="_on_detect_area_area_entered"]
+[connection signal="area_exited" from="CannonDetectArea" to="." method="_on_detect_area_area_exited"]

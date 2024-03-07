@@ -30,6 +30,5 @@ func on_direction_changed(facing_right):
 		sprite.offset.x = -15
 		
 func take_damage(damage):
-	print('player taken damage '+ str(damage))
 	health -= damage;
 	%ProgressBar.value = health;

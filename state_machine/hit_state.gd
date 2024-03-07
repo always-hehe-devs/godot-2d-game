@@ -34,7 +34,6 @@ func state_process(_delta):
 		
 func on_damage_taken(owner_name,damage: int):
 	if(owner_name == owner.name): 
-		print("player taken damage "+str(damage))
 		emit_signal("interrupt_state",self)
 		player.take_damage(damage)
 	
