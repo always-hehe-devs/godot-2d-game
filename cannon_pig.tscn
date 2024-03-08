@@ -143,8 +143,8 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CannonDetectArea"]
-position = Vector2(-76.3628, -22.4849)
-scale = Vector2(2.74743, 1.68561)
+position = Vector2(-84, -43)
+scale = Vector2(2.74743, 2.9072)
 polygon = PackedVector2Array(17.9669, 13.9326, -241, -91, -240, 107)
 
 [connection signal="timeout" from="CannonTimer" to="." method="_on_timer_timeout"]

@@ -8,7 +8,6 @@
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ysjl"]
-radius = 5.0
 
 [node name="Cannonball" type="RigidBody2D"]
 script = ExtResource("1_70o1y")
@@ -16,14 +15,6 @@ script = ExtResource("1_70o1y")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-7, -5)
 texture = ExtResource("1_mpxcr")
-
-[node name="ImpactDetector" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ImpactDetector"]
-shape = SubResource("CircleShape2D_6ud1c")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -34,8 +25,15 @@ script = ExtResource("3_5vd11")
 shape = SubResource("CircleShape2D_6ud1c")
 debug_color = Color(0.921569, 0.129412, 0.611765, 0.419608)
 
+[node name="ImpactDetector" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ImpactDetector"]
+shape = SubResource("CircleShape2D_6ud1c")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5ysjl")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="ImpactDetector" to="." method="_on_impact_detector_body_entered"]

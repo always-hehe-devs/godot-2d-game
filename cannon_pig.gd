@@ -27,7 +27,6 @@ func _physics_process(delta):
 			print('attack')
 		MOB_STATE.AIMING:
 			if cannon_timer.is_stopped():
-				print('timer')
 				cannon_timer.start(1)
 		MOB_STATE.FIRE:
 			shoot()
@@ -40,7 +39,10 @@ func shoot():
 	cannon_animations.play("Fire")
 	var cannonball_instance = CannonBallScene.instantiate()
 	cannonball_instance.direction = global_position.direction_to(player.global_position)
-	add_child(cannonball_instance)
+	cannonball_instance.position.x = position.x - 40
+	cannonball_instance.position.y = position.y
+	get_parent().add_child(cannonball_instance)
+	switch_state(MOB_STATE.AIMING)
 	
 func update_sprite_direction():
 	if direction < 0: 
@@ -72,6 +74,5 @@ func switch_state(new_state):
 		current_state = new_state
 
 func _on_timer_timeout():
-	print('here')
 	if current_state == MOB_STATE.AIMING:
 		switch_state(MOB_STATE.FIRE)
