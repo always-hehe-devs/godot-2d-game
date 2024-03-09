@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3x33mq001jls"]
+[gd_scene load_steps=14 format=3 uid="uid://b3x33mq001jls"]
 
 [ext_resource type="Script" path="res://cannonball.gd" id="1_70o1y"]
 [ext_resource type="Texture2D" uid="uid://dh8a6h2rr7jki" path="res://assets/10-Cannon/Cannon Ball.png" id="1_mpxcr"]
 [ext_resource type="Script" path="res://cannonball_hitbox.gd" id="3_5vd11"]
+[ext_resource type="Texture2D" uid="uid://byj8gelotxjpe" path="res://assets/10-Cannon/Boooooom (52x56).png" id="4_8g4mp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ud1c"]
 radius = 6.0
@@ -10,17 +11,67 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ysjl"]
 radius = 5.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lv031"]
+atlas = ExtResource("4_8g4mp")
+region = Rect2(0, 0, 52, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cbap"]
+atlas = ExtResource("4_8g4mp")
+region = Rect2(52, 0, 52, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf484"]
+atlas = ExtResource("4_8g4mp")
+region = Rect2(104, 0, 52, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf0r7"]
+atlas = ExtResource("4_8g4mp")
+region = Rect2(156, 0, 52, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cg60p"]
+atlas = ExtResource("4_8g4mp")
+region = Rect2(208, 0, 52, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jhsf"]
+atlas = ExtResource("4_8g4mp")
+region = Rect2(260, 0, 52, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8lxuc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lv031")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cbap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wf484")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wf0r7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cg60p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jhsf")
+}],
+"loop": false,
+"name": &"Explosion",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
 [node name="Cannonball" type="RigidBody2D"]
 script = ExtResource("1_70o1y")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-7, -5)
-texture = ExtResource("1_mpxcr")
 
 [node name="ImpactDetector" type="Area2D" parent="."]
 collision_layer = 3
 collision_mask = 3
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ImpactDetector"]
 shape = SubResource("CircleShape2D_6ud1c")
@@ -35,7 +86,20 @@ shape = SubResource("CircleShape2D_6ud1c")
 debug_color = Color(0.921569, 0.129412, 0.611765, 0.419608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_5ysjl")
+debug_color = Color(0.682353, 0.498039, 0.207843, 0.419608)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.19209e-07, -1)
+scale = Vector2(0.513462, 0.513462)
+sprite_frames = SubResource("SpriteFrames_8lxuc")
+animation = &"Explosion"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-7, -5)
+texture = ExtResource("1_mpxcr")
+
 [connection signal="body_entered" from="ImpactDetector" to="." method="_on_impact_detector_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
